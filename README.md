@@ -1,6 +1,6 @@
 # CoRT-dc
 
-This includes all discord stuff for Champions of Regnum, as of now:
+This includes all Discord stuff for Champions of Regnum, as of now:
 
 - a bot that displays BZ status changes and next BZs, with countdowns
 - a bot that displays bosses respawn time, with countdowns
@@ -40,7 +40,7 @@ Keep the webhook URLs somewhere, well need them later. **Note that these URLs
 should be kept secret at any cost!**
 
 As of now, Discord does **NOT** autopublish messages from webhooks in
-announcement channels. You'll need to invite the bot "AutoPublish" and configure
+announcement channels. You'll need to invite the bot "Auto Publisher" and configure
 its permissions for your two channels accordingly, see the instructions at
 https://discord.com/api/oauth2/authorize?client\_id=739823232651100180&permissions=76800&scope=bot
 
@@ -50,7 +50,7 @@ Once done you've just to install CoRT-dc in your server.
 
 You could use git, but i'm detailing the good old download method.
 
-- Download the latest tgz archive at http://TOBEDEFINED
+- Download the latest zip archive at https://github.com/mascaldotfr/CoRT-dc/archive/refs/heads/main.zip
 - Extract it where you want
 - Modify storage.ini to initialise triggers:
 
@@ -67,7 +67,7 @@ nextboss = 0
 ```
 
 - Copy `secrets.py.example` to `secrets.py`, and add the webhook URLs you saved
-  earlier for BZ and bosses
+  earlier for BZ and bosses. Chmod/Chown it accordingly.
 - Now we'll trigger our first discord messages, issue the following commands:
 
 ```
