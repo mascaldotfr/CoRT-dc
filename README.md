@@ -2,8 +2,8 @@
 
 This includes all Discord stuff for Champions of Regnum, as of now:
 
-- a bot that displays BZ status changes and next BZs, with countdowns (https://discord.gg/DXDWKnZ2mw)
-- a bot that displays bosses respawn time, with countdowns (https://discord.gg/SBzmeycYdT)
+- a bot that displays BZ status changes and next BZs, with countdowns (live @ https://discord.gg/DXDWKnZ2mw)
+- a bot that displays bosses respawn time, with countdowns (live @ https://discord.gg/SBzmeycYdT)
 
 It's released under the MIT License
 
