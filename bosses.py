@@ -53,5 +53,4 @@ with open('storage.ini', 'w') as storagefile:
 message = "**Next bosses respawns:**\n"
 for boss in next_respawns:
     message = f'{message}\n**{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
-message = f'{message}'
 discord.send_message("bosses", message);
