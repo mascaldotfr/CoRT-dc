@@ -16,7 +16,6 @@ nextboss = 0
 """
 
 respawn_time = 109 * 3600 # 109 hours
-last_respawns = {}
 next_respawns = {}
 bosses = ["Evendim", "Thorkul", "Daen"]
 now = dt.now()
@@ -30,6 +29,7 @@ if int(storage.get("bosses", "nextboss")) >= now.timestamp():
     exit(1)
 
 for boss in bosses:
+    # storage contains previous respawns timestamps
     tried_respawn_ts = int(storage.get("bosses", boss))
     while True:
             tried_respawn_ts = tried_respawn_ts + respawn_time;
