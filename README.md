@@ -12,7 +12,7 @@ It's released under the MIT License
 While i currently host that stuff, i would recommend, if you're capable to do
 so, to self host these bots. They use very little resources and are not
 permanent (launched through `cron`), making them able to work on tiny VPSes
-with 128MB of RAM and 1GB disk space.
+with 128MB of RAM and 2GB disk space.
 
 Deployment is pretty easy if you're used to Linux, Discord side can be painful.
 
