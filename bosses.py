@@ -18,6 +18,7 @@ nextboss = 0
 respawn_time = 109 * 3600 # 109 hours
 next_respawns = {}
 bosses = ["Evendim", "Thorkul", "Daen"]
+bosses_icons = {"Evendim": ":ghost:", "Thorkul": ":worm:", "Daen": ":alien:"}
 now = dt.now()
 
 storage = ConfigParser()
@@ -52,5 +53,5 @@ with open('storage.ini', 'w') as storagefile:
 # create discord message
 message = "**Next bosses respawns:**\n"
 for boss in next_respawns:
-    message = f'{message}\n**{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
+    message = f'{message}\n{bosses_icons[boss]} **{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
 discord.send_message("bosses", message);
