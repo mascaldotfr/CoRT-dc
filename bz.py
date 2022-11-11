@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Copyright © 2022, mascal
-# Released under the MIT license 
+# Released under the MIT license
 
 
 from datetime import datetime as dt
@@ -67,7 +67,7 @@ bz_end_status = "Next one" if not bz_on else "Ending"
 bz_end_status_dt = bz_ends_at if bz_on else next_bzs_begin[0]
 bz_dctag_status = f'<t:{int(dt.timestamp(bz_end_status_dt))}:R>';
 bz_dctag_status_full = f'<t:{int(dt.timestamp(bz_end_status_dt))}:t>';
-message = message + f'BZ is {bz_status}. {bz_end_status} at {bz_dctag_status_full} (~ {bz_dctag_status}) \n'
+message = message + f'BZ is {bz_status}. {bz_end_status} at {bz_dctag_status_full} (~ {bz_dctag_status}) \n\n'
 message = message + "**Next BZs:** \n"
 for next_bz in range(0, len(next_bzs_begin)):
     nextbz_begin_timestamp = f'<t:{int(dt.timestamp(next_bzs_begin[next_bz]))}:F>'

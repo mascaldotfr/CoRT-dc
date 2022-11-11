@@ -50,7 +50,8 @@ storage.set("bosses", "nextboss", str(next_boss_appears_at))
 with open('storage.ini', 'w') as storagefile:
         storage.write(storagefile)
 # create discord message
-message = ""
+message = "**Next bosses respawns:**\n"
 for boss in next_respawns:
     message = f'{message}\n**{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
+message = f'{message}'
 discord.send_message("bosses", message);
