@@ -61,7 +61,7 @@ bz_on = 1
 
 [bosses]
 Evendim = 1666803900
-Thorkul = 1666745040
+Thorkul = 1681656552
 Daen = 1679839823
 nextboss = 0
 ```
