@@ -60,7 +60,7 @@ You could use git, but i'm detailing the good old download method.
 bz_on = 1
 
 [bosses]
-Evendim = 1666803900
+Evendim = 1682107811
 Thorkul = 1681656552
 Daen = 1679839823
 nextboss = 0
@@ -72,7 +72,7 @@ nextboss = 0
 
 ```
 cd /where/is/CoRT-dc
-python3 bz.py
+python3 bz.py # will only send a message if bz is on
 python3 bosses.py
 ```
 

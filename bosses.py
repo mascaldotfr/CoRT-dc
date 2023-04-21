@@ -7,14 +7,6 @@ from configparser import ConfigParser
 from datetime import datetime as dt
 import discord
 
-"""
-;test values to put in storage.ini file
-Evendim = 1666803900
-Thorkul = 1666745040
-Daen = 1666890420
-nextboss = 0
-"""
-
 respawn_time = 109 * 3600 # 109 hours
 next_respawns = {}
 bosses = ["Evendim", "Thorkul", "Daen"]
