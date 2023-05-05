@@ -7,7 +7,7 @@
 from datetime import datetime as dt
 from datetime import timezone as tz
 from configparser import ConfigParser
-import discord
+import mydiscord
 
 
 # BZ beginning and ending time
@@ -83,4 +83,4 @@ if (storage.get("bz", "bz_on") != str_bz_on):
     storage.set("bz", "bz_on", str_bz_on)
     with open('storage.ini', 'w') as storagefile:
         storage.write(storagefile)
-    discord.send_message("bz", message)
+    mydiscord.send_and_publish("bz", message)

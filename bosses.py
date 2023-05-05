@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-# Copyright © 2022, mascal
+# Copyright © 2022-2023, mascal
 # Released under the MIT license
 
 from configparser import ConfigParser
 from datetime import datetime as dt
-import discord
+import mydiscord
 
 respawn_time = 109 * 3600 # 109 hours
 next_respawns = {}
@@ -46,4 +46,4 @@ with open('storage.ini', 'w') as storagefile:
 message = "**Next bosses respawns:**\n"
 for boss in next_respawns:
     message = f'{message}\n{bosses_icons[boss]} **{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
-discord.send_message("bosses", message);
+mydiscord.send_and_publish("bosses", message)
