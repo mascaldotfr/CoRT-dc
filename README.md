@@ -5,31 +5,12 @@ This includes all Discord stuff for Champions of Regnum, as of now:
 - a bot that displays BZ status changes and next BZs, with countdowns (live @ https://discord.gg/DXDWKnZ2mw)
 - a bot that displays bosses respawn time, with countdowns (live @ https://discord.gg/SBzmeycYdT)
 
-It's released under the MIT License. Due to various issues with auto publishing
-announcements through a third party bot, the interaction changed and is now
-using discord.py itself instead of webhooks. See also the `legacy` branch.
-
-
-I hope to document the setup later, as there is some changes.
-
----
-
-**OLD DOCUMENTATION, SEE LEGACY BRANCH**
-
-
-
-# CoRT-dc
-
-This includes all Discord stuff for Champions of Regnum, as of now:
-
-- a bot that displays BZ status changes and next BZs, with countdowns (live @ https://discord.gg/DXDWKnZ2mw)
-- a bot that displays bosses respawn time, with countdowns (live @ https://discord.gg/SBzmeycYdT)
-
-It's released under the MIT License
+It's released under the MIT License. A former version using webhooks can be
+found in the `legacy` branch of the repo.
 
 ## Deployment
 
-While i currently host that stuff, i would recommend, if you're capable to do
+While I currently host that stuff, I would recommend, if you are capable to do
 so, to self host these bots. They use very little resources and are not
 permanent (launched through `cron`), making them able to work on tiny VPSes
 with 128MB of RAM and 2GB disk space.
@@ -39,9 +20,10 @@ Deployment is pretty easy if you're used to Linux, Discord side can be painful.
 ### Pre-requisites
 
 - Linux VPS or server (should work on windows but...), called VPS later
-- Python 3, we only need base python, no external modules are used, thanks to
-  discord webhooks (https://discord.com/developers/docs/resources/webhook)
+- Python 3 with the `discord` (discord.py) module
 - Cron activated (or do systemd timers if you prefer)
+- Developer mode should be activated (see https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
+- Basic knowledge of discord server management
 
 ### Discord paperwork
 
@@ -49,26 +31,42 @@ Deployment is pretty easy if you're used to Linux, Discord side can be painful.
 enable your community server, see
 https://support.discord.com/hc/en-us/articles/360047132851-Enabling-Your-Community-Server*
 
-Once enabled, create two channels, either text (local only) or announcement
-(shared/community). Set the permissions so nobody can write in these two
-channels but CoRT-dc. Let's call them `bz-status` and `bosses-status`.
+Once you get your server, create two channels, either text (local only) or
+announcement (shared/community). Let's call them `bz-status` and
+`bosses-status`.
 
-Now create a webhook for each channel, a detailed guide can be found at
-https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+### Create an Application (bot) and make it join your server
 
-Keep the webhook URLs somewhere, well need them later. **Note that these URLs
-should be kept secret at any cost!**
+You need to create a bot account from your own account.
 
-As of now, Discord does **NOT** autopublish messages from webhooks in
-announcement channels. You'll need to invite the bot "Auto Publisher" and configure
-its permissions for your two channels accordingly, see the instructions at
-https://discord.com/api/oauth2/authorize?client\_id=739823232651100180&permissions=76800&scope=bot
+See https://discordpy.readthedocs.io/en/stable/discord.html#discord-intro
 
-Once done you've just to install CoRT-dc in your server.
+At stage 6, give the following permissions to the bot:
+
+- "Send Messages"
+- "Manage Messages"
+
+At this point, your should have your bot in your server member list.
+
+### Set the channels permissions
+
+Doc: https://support.discord.com/hc/en-us/articles/10543994968087-Channel-Permissions-Settings-101
+
+You may have noted that your bot has a specific role, for each channels allow
+it to:
+
+- "View Channel"
+- "Send Messages"
+- "Manage Messages"
+
+Set the permissions of `@everyone` so nobody can write in these two channels but
+CoRT-dc (and you as the server owner).
+
+Time to install the bot on your VPS now.
 
 ### VPS setup
 
-You could use git, but i'm detailing the good old download method.
+You could use git, but I am detailing the good old download method.
 
 - Download the latest zip archive at https://github.com/mascaldotfr/CoRT-dc/archive/refs/heads/main.zip
 - Extract it where you want
@@ -86,13 +84,16 @@ Daen = 1679839823
 nextboss = 0
 ```
 
-- Copy `secrets.py.example` to `secrets.py`, and add the webhook URLs you saved
-  earlier for BZ and bosses. Chmod/Chown it accordingly.
-- Now we'll trigger our first discord messages, issue the following commands:
+- Copy `secrets.py.example` to `secrets.py`, add the secret token you got when
+  creating the bot (you can regenerate it if lost), the various channels IDs
+  and the server ID; see the developer link in *Pre-requisites* that explains
+  how to get them. Leave the `test` channel ID as-is, it is used for development.
+  Chmod/Chown it accordingly.
+- Now we will trigger our first discord messages, issue the following commands:
 
 ```
 cd /where/is/CoRT-dc
-python3 bz.py # will only send a message if bz is on
+python3 bz.py
 python3 bosses.py
 ```
 
