@@ -3,7 +3,6 @@
 # Copyright © 2022-2023, mascal
 # Released under the MIT license
 
-import os
 import discord
 import secrets
 
