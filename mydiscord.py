@@ -13,9 +13,11 @@ def send_and_publish(target="test", msg="message"):
     async def on_ready():
         channel = client.get_channel(secrets.channels[target])
         await channel.send(msg)
-        async for message in channel.history(limit=1):
-            last_message = message
-        await message.publish()
+        # Don't publish when testing things or i would hit the rate limit
+        if target != "test":
+            async for message in channel.history(limit=1):
+                last_message = message
+            await message.publish()
         await client.close()
     client.run(secrets.token)
 
