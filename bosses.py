@@ -4,31 +4,40 @@
 # Released under the MIT license
 
 from configparser import ConfigParser
-from datetime import datetime as dt
+import sys
+import time
 import mydiscord
 
-respawn_time = 109 * 3600 # 109 hours
 next_respawns = {}
-bosses = ["Evendim", "Thorkul", "Daen"]
-bosses_icons = {"Evendim": ":ghost:", "Thorkul": ":worm:", "Daen": ":alien:"}
-now = dt.now()
+bosses = {
+        "Evendim": {"icon": ":ghost:", "display": "Evendim"},
+        "Thorkul": {"icon": ":worm:", "display": "Thorkul"},
+        "Daen": {"icon": ":alien:", "display": "Daen Rah"},
+        "Server": {"icon": ":robot:", "display": "Server Reboot (:worm::alien::ghost:)"}
+}
+now = time.time()
 
 storage = ConfigParser()
 storage.read("storage.ini")
 
-if int(storage.get("bosses", "nextboss")) >= now.timestamp():
+if int(storage.get("bosses", "nextboss")) >= now:
     # a previous runtime already set up the current respawn times
     # and will only change when the next boss will respawn
-    exit(1)
+    sys.exit(1)
 
-for boss in bosses:
+for boss in bosses.keys():
     # storage contains previous respawns timestamps
     tried_respawn_ts = int(storage.get("bosses", boss))
+    if boss == "Server":
+        respawn_time = 168 * 3600 # 1 week
+        reboot_server_time = 1800 # 30 minutes reboot
+    else:
+        respawn_time = 109 * 3600 # 109 hours
+        reboot_server_time = 0
     while True:
             tried_respawn_ts = tried_respawn_ts + respawn_time;
-            tried_respawn_dt = dt.fromtimestamp(tried_respawn_ts)
-            if tried_respawn_dt >= now:
-                next_respawns[boss] = tried_respawn_ts
+            if tried_respawn_ts >= now:
+                next_respawns[boss] = tried_respawn_ts + reboot_server_time
                 # set the last respawn for a given boss
                 storage.set("bosses", boss, str(tried_respawn_ts - respawn_time))
                 break
@@ -45,5 +54,5 @@ with open('storage.ini', 'w') as storagefile:
 # create discord message
 message = "**Next bosses respawns:**\n"
 for boss in next_respawns:
-    message = f'{message}\n{bosses_icons[boss]} **{boss}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
+    message = f'{message}\n{bosses[boss]["icon"]} **{bosses[boss]["display"]}:** <t:{next_respawns[boss]}> (~ <t:{next_respawns[boss]}:R>)'
 mydiscord.send_and_publish("bosses", message)

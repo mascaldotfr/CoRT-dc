@@ -81,6 +81,7 @@ bz_on = 1
 Evendim = 1682107811
 Thorkul = 1681656552
 Daen = 1679839823
+Server = 1686736800
 nextboss = 0
 ```
 
