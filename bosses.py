@@ -12,7 +12,7 @@ next_respawns = {}
 bosses = {
         "Evendim": {"icon": ":ghost:", "display": "Evendim"},
         "Thorkul": {"icon": ":worm:", "display": "Thorkul"},
-        "Daen": {"icon": ":alien:", "display": "Daen Rah"},
+        "Daen": {"icon": ":alien:", "display": "Daen Rha"},
         "Server": {"icon": ":robot:", "display": "Server Reboot (:worm::alien::ghost:)"}
 }
 now = time.time()
