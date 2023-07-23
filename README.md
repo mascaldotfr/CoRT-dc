@@ -70,21 +70,8 @@ You could use git, but I am detailing the good old download method.
 
 - Download the latest zip archive at https://github.com/mascaldotfr/CoRT-dc/archive/refs/heads/main.zip
 - Extract it where you want
-- Modify storage.ini to initialise triggers:
-
-```
-[bz]
-; set 1 if BZ is currently off, otherwise 0
-bz_on = 1
-
-[bosses]
-Evendim = 1682107811
-Thorkul = 1681656552
-Daen = 1679839823
-Server = 1686736800
-nextboss = 0
-```
-
+- Copy `storage.ini.bootstrap` to `storage.ini` and modify the `bz_on` variable
+  according to the current BZ situation
 - Copy `secrets.py.example` to `secrets.py`, add the secret token you got when
   creating the bot (you can regenerate it if lost), the various channels IDs
   and the server ID; see the developer link in *Pre-requisites* that explains

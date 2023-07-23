@@ -1,3 +1,4 @@
+; 0 = bz off, 1 = bz on
 [bz]
 bz_on = 0
 
