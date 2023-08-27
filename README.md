@@ -100,3 +100,10 @@ And add the following lines:
 
 Basically this runs the bz script at the beginning of every hour, and the boss
 one every 15 minutes (told you it was not resource demanding).
+
+## Update respawns
+
+- Open https://mascaldotfr.github.io/CoRT/bosses.html
+- Press F12, the click on the console tab
+- You'll get the previous respawn time that you can insert in `storage.ini` and
+ `storage.ini.bootstrap`
