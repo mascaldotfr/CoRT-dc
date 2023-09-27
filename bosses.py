@@ -27,7 +27,6 @@ next_saved_respawn = int(storage.get("bosses", "nextboss"))
 
 next_respawn_in_minutes = dt.fromtimestamp(next_saved_respawn) - dt.fromtimestamp(now)
 next_respawn_in_minutes = int(next_respawn_in_minutes.total_seconds() / 60)
-print(next_respawn_in_minutes)
 if next_respawn_in_minutes == warning_delay:
     try:
         boss = storage.get("bosses", "nextbossname")
