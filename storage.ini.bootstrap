@@ -3,8 +3,9 @@
 bz_on = 0
 
 [bosses]
-evendim = 1693095192
-thorkul = 1693428668
-daen = 1692789192
-server = 1692784800
+evendim = 1695449592
+thorkul = 1695783068
+daen = 1695535992
+server = 1695204000
 nextboss = 0
+nextbossname = Server

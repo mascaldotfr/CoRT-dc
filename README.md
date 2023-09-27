@@ -95,7 +95,7 @@ And add the following lines:
 
 ```
 0 * * * * cd /where/is/CoRT-dc/ && python3 bz.py
-5,20,35,50 * * * * cd /where/is/CoRT-dc/ && python3 bosses.py
+* * * * * cd /where/is/CoRT-dc/ && python3 bosses.py
 ```
 
 Basically this runs the bz script at the beginning of every hour, and the boss
