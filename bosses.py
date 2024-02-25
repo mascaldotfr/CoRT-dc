@@ -48,14 +48,12 @@ for boss in bosses.keys():
     tried_respawn_ts = int(storage.get("bosses", boss))
     if boss == "Server":
         respawn_time = 168 * 3600 # 1 week
-        reboot_server_time = 1800 # 30 minutes reboot
     else:
         respawn_time = 109 * 3600 # 109 hours
-        reboot_server_time = 0
     while True:
             tried_respawn_ts = tried_respawn_ts + respawn_time
             if tried_respawn_ts >= now:
-                next_respawns[boss] = tried_respawn_ts + reboot_server_time
+                next_respawns[boss] = tried_respawn_ts
                 # set the last respawn for a given boss
                 storage.set("bosses", boss, str(tried_respawn_ts - respawn_time))
                 break
