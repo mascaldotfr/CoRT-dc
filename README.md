@@ -107,3 +107,16 @@ one every 15 minutes (told you it was not resource demanding).
 - Press F12, the click on the console tab
 - You'll get the previous respawn time that you can insert in `storage.ini` and
  `storage.ini.bootstrap`
+
+## Deactivated modules
+
+### Events
+
+See the `events` directory.
+
+### Misc
+
+- A clone of the official Discord's #status-ra is available in `deactivated`.
+  It could be a good starter to display the warstatus from the API endpoint
+  (URL at
+  https://github.com/mascaldotfr/CoRT/tree/main/warstatus/stats#deployment)
