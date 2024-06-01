@@ -9,3 +9,8 @@ daen = 1715156280
 server = 1715164620
 nextboss = 0
 nextbossname = Server
+
+
+[status]
+lastrun = 0
+
