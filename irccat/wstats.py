@@ -46,8 +46,11 @@ def run_command():
             last1["Gem"] = data[realm]["gems"]["stolen"]["last"]
             last1["Wish"] = data[realm]["wishes"]["last"]
             for last in last1:
-                date = dt.fromtimestamp(last1[last])
-                time = ct.countdown(date, reverse=True).rjust(22)
+                try:
+                    date = dt.fromtimestamp(last1[last])
+                    time = ct.countdown(date, reverse=True).rjust(22)
+                except:
+                    time = "N/A".rjust(22) # None or more than 90 days without said event
                 lines[last] += "%BOLD" + rcolors[rid+1] + time  + "%NORMAL "
         for line in lines:
                 irccat.send_message("%BOLD%PURPLE" + line.ljust(4, ".") + "%NORMAL " + lines[line])
