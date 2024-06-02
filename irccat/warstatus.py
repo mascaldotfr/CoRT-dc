@@ -49,7 +49,6 @@ def send_message(message):
 def run():
     lastrun = manage_ini()
     with open(warstatus_json) as response:
-        msgtype = "WZ event"
         message = ""
         data = json.loads(response.read())
         for event in data["events_log"]:
@@ -57,7 +56,7 @@ def run():
                 if event["type"] in ("gem", "fort"):
                     captured = "captured"
                     if event["type"] == "gem":
-                        event["name"] = f"""%UNDERLINE{event["location"]}%UNDERLINE's gem #{event["name"]}%NORMAL"""
+                        event["name"] = f"""%UNDERLINE%UNDERLINE{event["location"]}%UNDERLINE%UNDERLINE's gem #{event["name"]}%NORMAL"""
                     if event["owner"] == event["location"]:
                         captured = "recovered"
                     owner = format_item(event["owner"])
