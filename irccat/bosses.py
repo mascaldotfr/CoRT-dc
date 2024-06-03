@@ -6,7 +6,7 @@ def run(data):
         from libs import irccat
         if data["type"] == "spawnsoon":
             boss = data["retval"]["name"]
-            message = f'%UNDERLINE{bossesinfo[boss]["display"]} is spawning in 10 minutes.%NORMAL'
+            message = f'%UNDERLINE{boss} is spawning in 10 minutes.%NORMAL'
             irccat.send_message(message)
 
 def command_run():
