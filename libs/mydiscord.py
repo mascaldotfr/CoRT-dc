@@ -19,5 +19,10 @@ def send_and_publish(target="test", msg="message"):
                 last_message = message
             await message.publish()
         await client.close()
-    client.run(secrets.token)
+    try:
+        client.run(secrets.token)
+    except Exception as e:
+        import sys
+        print("Discord failure" + repr(e))
+        sys.exit(1)
 
