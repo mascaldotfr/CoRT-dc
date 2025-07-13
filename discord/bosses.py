@@ -5,10 +5,10 @@ def run(data):
     if secrets.token == "":
         return
     bossesinfo = {
-            "Evendim": {"icon": ":eve:", "display": "Evendim"},
-            "Thorkul": {"icon": ":tk:", "display": "Thorkul"},
-            "Daen": {"icon": ":daen:", "display": "Daen Rha"},
-            "Server": {"icon": ":recycle:", "display": "Server Reboot (:tk::daen::eve:)"}
+            "Evendim": {"icon": "<:eve:1393905397231783997>", "display": "Evendim"},
+            "Thorkul": {"icon": "<:tk:1393905365112066068>", "display": "Thorkul"},
+            "Daen": {"icon": "<:daen:1393905413900210256>", "display": "Daen Rha"},
+            "Server": {"icon": ":recycle:", "display": "Server Reboot (<:eve:1393905397231783997><:tk:1393905365112066068><:daen:1393905413900210256>)"}
     }
 
     if data["type"] == "spawnsoon":
