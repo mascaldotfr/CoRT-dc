@@ -14,7 +14,7 @@ if now >= dt.fromisoformat("2024-06-03T18:00:00"):
 from libs import mydiscord
 mydiscord.send_and_publish("events2", "**" + message + "**")
 
-import secrets
-if secrets.irccat != "":
+import cortsecrets
+if cortsecrets.irccat != "":
     from libs import irccat
     irccat.send_message("%REVERSE" + message + "%NORMAL")

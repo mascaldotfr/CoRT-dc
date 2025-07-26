@@ -2,11 +2,11 @@
 
 import sys
 
-import secrets
+import cortsecrets
 import requests
 def send_message(message):
     try:
-        response = requests.post(secrets.irccat, message)
+        response = requests.post(cortsecrets.irccat, message)
         if response.status_code > 299:
             print(f'Failed to send message: {response.content}')
             sys.exit(1)

@@ -4,14 +4,14 @@
 # Released under the MIT license
 
 import discord
-import secrets
+import cortsecrets
 
 client = discord.Client(intents=discord.Intents.default())
 
 def send_and_publish(target="test", msg="message"):
     @client.event
     async def on_ready():
-        channel = client.get_channel(secrets.channels[target])
+        channel = client.get_channel(cortsecrets.channels[target])
         await channel.send(msg)
         # Don't publish when testing things or i would hit the rate limit
         if target != "test":
@@ -20,7 +20,7 @@ def send_and_publish(target="test", msg="message"):
             await message.publish()
         await client.close()
     try:
-        client.run(secrets.token)
+        client.run(cortsecrets.token)
     except Exception as e:
         import sys
         print("Discord failure" + repr(e))

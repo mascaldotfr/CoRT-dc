@@ -62,7 +62,7 @@ and RAM inexpensive.
 }
 ```
 
-5. In CORT-dc root directory, copy `secrets.py.example` to `secrets.py`, add
+5. In CORT-dc root directory, copy `cortsecrets.py.example` to `cortsecrets.py`, add
    the webhook url to the `irccat` variable, with the above config that's
    `http://localhost:8045/send`.
 6. Open `screen` or `tmux` and run `cd $IRCCAT && ./irccat`. Your bot should be

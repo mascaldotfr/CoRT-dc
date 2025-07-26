@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 def run(data):
-    import secrets
-    if secrets.irccat != "":
+    import cortsecrets
+    if cortsecrets.irccat != "":
         from libs import irccat
         if data["type"] == "spawnsoon":
             boss = data["retval"]["name"]
@@ -10,8 +10,8 @@ def run(data):
             irccat.send_message(message)
 
 def command_run():
-    import secrets
-    if secrets.irccat != "":
+    import cortsecrets
+    if cortsecrets.irccat != "":
         from configparser import ConfigParser
         from datetime import datetime as dt
         from datetime import timedelta as timedelta

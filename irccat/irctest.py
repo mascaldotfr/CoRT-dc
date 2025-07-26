@@ -4,8 +4,8 @@ import os, sys
 realroot = os.path.dirname(os.path.abspath(__file__ + "/.."))
 sys.path.insert(0, realroot)
 
-import secrets
+import cortsecrets
 
-if secrets.irccat != "":
+if cortsecrets.irccat != "":
     from libs import irccat
     irccat.send_message("@mascal TEST")

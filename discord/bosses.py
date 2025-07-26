@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 def run(data):
-    import secrets
-    if secrets.token == "":
+    import cortsecrets
+    if cortsecrets.token == "":
         return
     bossesinfo = {
             "Evendim": {"icon": "<:eve:1393905397231783997>", "display": "Evendim"},

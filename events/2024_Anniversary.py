@@ -53,7 +53,7 @@ else:
 from libs import mydiscord
 mydiscord.send_and_publish("events", message_dc)
 
-import secrets
-if secrets.irccat != "":
+import cortsecrets
+if cortsecrets.irccat != "":
     from libs import irccat
     irccat.send_message("%REVERSE" + message_irc + "%NORMAL")

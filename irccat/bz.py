@@ -3,8 +3,8 @@
 def run(data):
     bz_on = data["bzon"]
     bz_ends_at = data["bzendsat"]
-    import secrets
-    if secrets.irccat != "":
+    import cortsecrets
+    if cortsecrets.irccat != "":
         from libs import irccat
         from irccat import countdown as ct
         bz_status = "%DGREENBZ is ON" if bz_on else "%REDBZ is OFF"

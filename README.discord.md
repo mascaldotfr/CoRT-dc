@@ -49,7 +49,7 @@ Time to install the bot on your VPS now.
 ## System setup
 
 
-- Copy `secrets.py.example` to `secrets.py`, add the secret token you got when
+- Copy `cortsecrets.py.example` to `cortsecrets.py`, add the secret token you got when
   creating the bot (you can regenerate it if lost), the various channels IDs
   and the server ID; see the developer link in *Pre-requisites* that explains
   how to get them. Leave the `test` channel ID as-is, it is used for development.

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 def run(data):
-    import secrets
-    if secrets.token == "":
+    import cortsecrets
+    if cortsecrets.token == "":
         return
     from datetime import datetime as dt
 
