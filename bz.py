@@ -1,95 +1,39 @@
 #!/usr/bin/env python3
 
-# Copyright © 2022-2024 mascal
+# Copyright © 2022-2025 mascal
 # Released under the MIT license
 
-from datetime import datetime as dt
-from datetime import timezone as tz
-from datetime import timedelta as timedelta
-from configparser import ConfigParser
+import json
+import sys
+import time
 
-def get_bz():
-    # BZ beginning and ending time
-    # MONDAY = 0 SUNDAY = 6, ALL TIMES ARE UTC
-    bz_begin = [ 	[3, 13, 20],
-                    [13, 18],
-                    [13, 20],
-                    [3, 13, 18],
-                    [13, 20],
-                    [3, 13, 20],
-                    [13, 18] 	]
+status_file = "var/bz.json"
+channel = "bz"
 
-    bz_end = [  [6, 16, 23],
-                [16, 21],
-                [16, 23],
-                [6, 16, 21],
-                [17, 23],
-                [6, 16, 23],
-                [16, 21]	]
+def get_data():
+    import requests
+    response = requests.get("https://cort.thebus.top/api/bin/bz/bz.php", timeout=10)
+    return response.json()
 
-    next_bzs_begin = []
-    next_bzs_end = []
-    bz_on = False
-    bz_ends_at = 0
-    must_display = False
-
-    now = dt.now(tz=tz.utc)
-    current_day = now.weekday()
-    current_hour = now.hour
-    tomorrow = current_day + 1 if current_day + 1 <= 6 else 0
-
-    # get current bz status
-    for hour in range(0, len(bz_begin[current_day])):
-        if (current_hour >= bz_begin[current_day][hour] and
-            current_hour < bz_end[current_day][hour]):
-            bz_on = True
-            bz_ends_at = dt.now(tz=tz.utc)
-            bz_ends_at = bz_ends_at.replace(hour=bz_end[current_day][hour],
-                                            minute=0, second=0)
-            break
-
-    # compute future bzs
-    check_bzs_days = [current_day, tomorrow]
-    day_offset = 0
-    # Ensure there will be BZs for 2 days when announcing the last BZ of the day
-    if current_hour >= bz_begin[current_day][-1]:
-        day_after_tomorrow = tomorrow + 1 if tomorrow + 1 <= 6 else 0
-        check_bzs_days = [tomorrow, day_after_tomorrow]
-        day_offset = 1 # skip today
-    for day in check_bzs_days:
-        for hour in range(0, len(bz_begin[day])):
-            # skip passed BZ of the day
-            if day == current_day and bz_begin[day][hour] <= current_hour:
-                continue
-            time_holder = dt.now(tz=tz.utc) + timedelta(days=day_offset)
-            next_bzs_begin.append(time_holder.replace(hour=bz_begin[day][hour],
-                                                      minute=0, second=0))
-            next_bzs_end.append(time_holder.replace(hour=bz_end[day][hour],
-                                                    minute=0, second=0))
-        day_offset += 1
-
-    storage = ConfigParser()
-    storage.read("storage.ini")
-    # ConfigParser can't deal with booleans
-    str_bz_on = "1" if bz_on else "0"
-    # BZ status changed ?
-    if (storage.get("bz", "bz_on") != str_bz_on):
-        storage.set("bz", "bz_on", str_bz_on)
-        with open('storage.ini', 'w') as storagefile:
-            storage.write(storagefile)
-        # Tell caller that we must display the new BZ times
-        must_display = True
-
-    return {"bzbegin": next_bzs_begin,
-            "bzend": next_bzs_end,
-            "bzon": bz_on,
-            "bzendsat": bz_ends_at,
-            "mustdisplay": must_display}
-
-def display(data):
+def display():
     import cortsecrets
     if cortsecrets.token == "":
         return
+
+    now = time.time()
+    data = None
+    # Bail out or get data. The try block ensures 1st run is ok
+    try:
+        with open(status_file) as f:
+            old_status = json.load(f)
+            if  (old_status["bzendsat"] != 0 and now > old_status["bzendsat"]) or\
+                    now > old_status["bzbegin"][0]:
+                data = get_data()
+            else:
+                sys.exit()
+    except Exception as e:
+        print("(Normal if it's your first run)", e)
+        data = get_data()
 
     next_bzs_begin = data["bzbegin"]
     next_bzs_end = data["bzend"]
@@ -100,21 +44,20 @@ def display(data):
     bz_status = ":white_check_mark: BZ is **ON**" if bz_on else ":x: BZ is **OFF**"
     bz_end_status = "Next one" if not bz_on else "Ending"
     bz_end_status_dt = bz_ends_at if bz_on else next_bzs_begin[0]
-    bz_dctag_status = f'<t:{int(dt.timestamp(bz_end_status_dt))}:R>'
-    bz_dctag_status_full = f'<t:{int(dt.timestamp(bz_end_status_dt))}:t>'
+    bz_dctag_status = f'<t:{bz_end_status_dt}:R>'
+    bz_dctag_status_full = f'<t:{bz_end_status_dt}:t>'
 
     message = f'{bz_status}. {bz_end_status} at {bz_dctag_status_full} (~ {bz_dctag_status}) \n\n'
     message = message + "**Next BZs:** \n"
     for next_bz in range(0, len(next_bzs_begin)):
-        nextbz_begin_timestamp = f'<t:{int(dt.timestamp(next_bzs_begin[next_bz]))}:F>'
-        nextbz_end_timestamp = f'<t:{int(dt.timestamp(next_bzs_end[next_bz]))}:t>'
+        nextbz_begin_timestamp = f'<t:{next_bzs_begin[next_bz]}:F>'
+        nextbz_end_timestamp = f'<t:{next_bzs_end[next_bz]}:t>'
         message = message + nextbz_begin_timestamp + "-" + nextbz_end_timestamp +"\n"
 
     from libs import mydiscord
-    mydiscord.send_and_publish("bz", message)
+    mydiscord.send_and_publish(channel, message)
 
-data = get_bz()
-if data["mustdisplay"] == True:
-    display(data)
+    with open(status_file, "w") as f:
+        json.dump(data, f)
 
-
+display()

@@ -4,7 +4,7 @@ This includes all Discord stuff for Champions of Regnum, as of now:
 - a bot that displays BZ status changes and next BZs, with countdowns (live @ https://discord.gg/DXDWKnZ2mw)
 - a bot that displays bosses respawn time, with countdowns (live @ https://discord.gg/SBzmeycYdT)
 
-It's released under the MIT License. A former, simpler version using webhooks can be
+It's released under the MIT License. A former version using webhooks can be
 found in the `legacy` branch of the repo.
 
 ## Deployment
@@ -20,7 +20,7 @@ Deployment is pretty easy if you're used to Linux, Discord side can be painful.
 
 - Linux VPS or server (should work on windows but...), called VPS later
 - Decent understanding of said Linux system
-- Python 3
+- Python 3 (with the `requests` module; Debian: `python3-requests`)
 
 ### VPS setup
 
@@ -28,8 +28,6 @@ You could use git, but I am detailing the good old download method.
 
 - Download the latest zip archive at https://github.com/mascaldotfr/CoRT-dc/archive/refs/heads/main.zip
 - Extract it where you want
-- Copy `storage.ini.bootstrap` to `storage.ini` and modify the `bz_on` variable
-  according to the current BZ situation
 
 ### Discord deployment
 
@@ -49,13 +47,25 @@ And add the following lines:
 0 * * * * cd /where/is/CoRT-dc/ && python3 bz.py
 * * * * * cd /where/is/CoRT-dc/ && python3 bosses.py
 ```
+### Force display
 
-## Update respawns
+If for some reasons you need to force the display of statuses, remove the
+according file in `var`:
 
-- Open https://mascaldotfr.github.io/CoRT/bosses.html
-- Press F12, the click on the console tab
-- You'll get the previous respawn time that you can insert in `storage.ini` and
- `storage.ini.bootstrap`
+- `bz.json` for BZ
+- `bosses.json` for bosses
+
+Then call the according python script.
+
+### Bosses respawn update
+
+They're automatically up to date through
+[CoRT](https://github.com/mascaldotfr/CoRT)'s API.
+
+> [!NOTE]
+> The updated respawn time will be displayed after the **next** boss respawn,
+> which is ok because there is always a respawn between each boss respawn.
+> You can still force display if you want.
 
 ### Events
 
