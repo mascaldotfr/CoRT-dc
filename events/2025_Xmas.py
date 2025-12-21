@@ -26,19 +26,22 @@ event_deadline = dt.fromisoformat("2026-01-02T12:00:00")
 message_dc = ""
 if now >= event_deadline:
     message_dc = "Event is over, please disable me <@991767153571274833>!"
+elif now.minute() == 51 - notify_delay:
+    # Orc appears at 51 every hour
+    message_dc = f"Orcs' call for help in {notify_delay} minutes!"
 else:
     sbs_since_epoch = (now_ts - snowball_epoch_ts) // snowball_interval
     next_snowball_ts = int(snowball_epoch_ts + (sbs_since_epoch + 1) * snowball_interval)
     if round((next_snowball_ts - now_ts) / 60) == notify_delay:
-        message_dc = f"Snowball war in {notify_delay} minutes ({next_snowball_ts})!"
+        message_dc = f"Snowball war in {notify_delay} minutes!"
 
     races_since_epoch = (now_ts - race_epoch_ts) // race_interval
     next_race_ts = int(race_epoch_ts + (races_since_epoch + 1) * race_interval)
     if round((next_race_ts - now_ts) / 60) == notify_delay:
-        message_dc = f"Race in {notify_delay} minutes ({next_race_ts})!"
+        message_dc = f"Sled race in {notify_delay} minutes!"
 
     if message_dc == "":
         sys.exit(1)
 
 from libs import mydiscord
-mydiscord.send_and_publish("test", message_dc)
+mydiscord.send_and_publish("events", message_dc)
